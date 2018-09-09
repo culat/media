@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>播放器</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html, body{
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background: black;
+		}
+		#video0{
+			height: 100%;
+			width: 100%;
+			background: black;
+		}
+		.top{
+			height: 100%;
+			width: 100%;
+			background: black;
+			position: relative;
+			cursor: pointer;
+		}
+		#text{
+			text-align: center;
+			position: absolute;
+			height: 52px;
+			width: 400px;
+			top: calc(50% - 52px / 2);
+			left: calc(50% - 400px / 2);
+		}
+		#text span{
+			color: white;
+			font-size: 40px;
+			cursor: pointer;
+			user-select: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="top" id="top">
+		<div id="text" style="display: none;">
+			<span>单击页面以播放</span>
+		</div>
+		<video id="video0" controls="controls" playsinline="playsinline" style="display: none;"></video>
+	</div>
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="jquery.base64.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#text").css("display", "block");
+		});
+		function RegistrationClick() {
+			$("#top").click(function(){
+				$("#text").css("display", "none");
+				$("#video0").css("display", "block");
+				$("#video0").get(0).play();
+			});
+		}
+	</script>
+	<script>
+		function GetQueryString(name) {
+			let reg = new RegExp("(^|&)"+ name+ "=([^&]*)(&|$)");
+			let par = window.location.search.substr(1).match(reg);
+			if (par!= null) {
+				return unescape(par[2]);
+			} else {
+				return null;
+			}
+		}
+	</script>
+	<script>
+		let url = GetQueryString("url");
+		let type = GetQueryString("type");
+		if (url!= null) {
+			url = $.base64.decode(url);
+			console.log(url);
+			RegistrationClick();
+			$("#video0").attr("src", url);
+			if (type!= null) {
+				console.log(type);
+				$("#video0").attr("type", type);
+			}
+		} else {
+			$("#text>span").html("未载入内容");
+		}
+	</script>
+</body>
+</html>
