@@ -68,9 +68,9 @@
 	</script>
 	<script>
 		function GetQueryString(name) {
-			let reg = new RegExp("(^|&)"+ name+ "=([^&]*)(&|$)");
+			let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 			let par = window.location.search.substr(1).match(reg);
-			if (par!= null) {
+			if (par != null) {
 				return unescape(par[2]);
 			} else {
 				return null;
@@ -80,12 +80,12 @@
 	<script>
 		let url = GetQueryString("url");
 		let type = GetQueryString("type");
-		if (url!= null) {
+		if (url != null) {
 			url = $.base64.decode(url);
 			console.log(url);
 			RegistrationClick();
 			$("#video0").attr("src", url);
-			if (type!= null) {
+			if (type != null) {
 				console.log(type);
 				$("#video0").attr("type", type);
 			}
